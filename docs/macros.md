@@ -55,6 +55,8 @@ Our missile silo controller is expanded at compile time to
 
 If an argument evaluates to nil, the chain of `if` statements is broken and none of the remaining arguments are evaulated.
 
+Notice that `(when a b)` is itself a macro invocation, which expands to `(if a b)`. Many expressions which are require special syntax in other languages are implemented as macros in Lisp. The AND macro is part of the language specification which means it is provided by all Common Lisp implementations, usually with code similar to our example.
+
 ### Backquote
 
 Common Lisp's backquote syntax is very useful tool for constructing code in macros and complex data structures generally. Instead of constructing a data structure with functions like `cons` `list` and `append`, one can simple write a quoted template and insert values into it by unquoting with commas.
@@ -77,8 +79,9 @@ N
 
 The comma unquotes the expression following it so it is evaluated as if it were outside the quote. n is decremented and the result is inserted into the quoted structure.
 
-Lists can also be unquoted with `,@` which splices the contents of the list into the surrounding structure. Compare
+Lists can also be unquoted with `,@` which splices the contents of the list into the surrounding structure.
 
+Compare
 ```lisp
 * (defvar object '(green bottle))
 OBJECT
